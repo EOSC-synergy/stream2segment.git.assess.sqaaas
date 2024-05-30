@@ -1,0 +1,64 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/2.1.1
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/rizac/stream2segment:
+      branch: master
+      repo: https://github.com/rizac/stream2segment.git
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/rizac/stream2segment git:
+        commands:
+        - /usr/bin/env sh .sqa/script.nerdy-russet-dragon.sh
+        container: qc.acc_shaky-cardinal-devil
+  QC.Doc:
+    repos:
+      github.com/rizac/stream2segment find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.grumpy-zucchini-gibbon.sh
+        container: qc.doc_whiny-lime-ibis
+      github.com/rizac/stream2segment git:
+        commands:
+        - /usr/bin/env sh .sqa/script.greasy-tan-camel.sh
+        container: qc.doc_greasy-jade-argentino
+      github.com/rizac/stream2segment markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.sleazy-magnolia-burmese.sh
+        container: qc.doc_flabby-periwinkle-stoat
+  QC.Lic:
+    repos:
+      github.com/rizac/stream2segment licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.sunny-amethyst-crab.sh
+        container: qc.lic_chewy-eggplant-gopher
+  QC.Sec:
+    repos:
+      github.com/rizac/stream2segment bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.hasty-olivine-dollar.sh
+        container: qc.sec_wheezy-peach-retriever
+  QC.Sty:
+    repos:
+      github.com/rizac/stream2segment flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.smelly-cinnamon-owl.sh
+        container: qc.sty_hazy-red-jaguar
+  QC.Uni:
+    repos:
+      github.com/rizac/stream2segment pytest:
+        commands:
+        - /usr/bin/env sh .sqa/script.gamy-harlequin-koala.sh
+        container: qc.uni_sickly-xanthic-echidna
+  QC.Ver:
+    repos:
+      github.com/rizac/stream2segment get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.snoopy-vermilion-woodpecker.sh
+        container: qc.ver_lousy-xanthic-hound
+timeout: 5400
